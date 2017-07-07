@@ -3,76 +3,86 @@
  * Plugin Name: WooCommerce Digital Checkout
  * Plugin URI: https://github.com/kenanfallon/woocommerce-digital-checkout
  * Description: Hide Billing and Shipping Checkout Fields For Virtual/Download Products
- * Version: 0.1
+ * Version: 0.2
  * Author: Kenan Fallon
  * Author URI: http://kenanfallon.com
  * License: GPLv2 or later
  */
 
+/**
+ * Prevent direct access
+ **/
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-add_filter( 'woocommerce_checkout_fields' , 'WDC_remove_billing_checkout_fields' );
+/**
+ * Check if WooCommerce is active
+ **/
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
-function WDC_remove_billing_checkout_fields( $fields ) {
+    add_filter( 'woocommerce_checkout_fields' , 'WDC_remove_billing_checkout_fields' );
 
-    if( WDC_virtual_product_check() == true ) {
-        unset($fields['billing']['billing_company']);
-        unset($fields['billing']['billing_address_1']);
-        unset($fields['billing']['billing_address_2']);
-        unset($fields['billing']['billing_city']);
-        unset($fields['billing']['billing_postcode']);
-        unset($fields['billing']['billing_country']);
-        unset($fields['billing']['billing_state']);
-        unset($fields['billing']['billing_phone']);
-        unset($fields['order']['order_comments']);
-        unset($fields['billing']['billing_address_2']);
-        unset($fields['billing']['billing_postcode']);
-        unset($fields['billing']['billing_company']);
-        unset($fields['billing']['billing_city']);
+    function WDC_remove_billing_checkout_fields( $fields ) {
 
-        unset($fields['shipping']['shipping_first_name']);
-        unset($fields['shipping']['shipping_last_name']);
-        unset($fields['shipping']['shipping_company']);
-        unset($fields['shipping']['shipping_country']);
-        unset($fields['shipping']['shipping_address_1']);
-        unset($fields['shipping']['shipping_address_2']);
-        unset($fields['shipping']['shipping_city']);
-        unset($fields['shipping']['shipping_state']);
-        unset($fields['shipping']['shipping_postcode']);
-    }
+        if( WDC_virtual_product_check() == true ) {
+            unset($fields['billing']['billing_company']);
+            unset($fields['billing']['billing_address_1']);
+            unset($fields['billing']['billing_address_2']);
+            unset($fields['billing']['billing_city']);
+            unset($fields['billing']['billing_postcode']);
+            unset($fields['billing']['billing_country']);
+            unset($fields['billing']['billing_state']);
+            unset($fields['billing']['billing_phone']);
+            unset($fields['order']['order_comments']);
+            unset($fields['billing']['billing_address_2']);
+            unset($fields['billing']['billing_postcode']);
+            unset($fields['billing']['billing_company']);
+            unset($fields['billing']['billing_city']);
 
-    return $fields;
-}
-
-function WDC_virtual_product_check( ) {
-
-    $products = WC()->cart->cart_contents;
-    $virtualProducts = 0;
-
-    foreach ($products as $product) {
-
-        if ($product['variation_id'] ){
-            $product_id = $product['variation_id'];
-        }else{
-            $product_id = $product['product_id'];
+            unset($fields['shipping']['shipping_first_name']);
+            unset($fields['shipping']['shipping_last_name']);
+            unset($fields['shipping']['shipping_company']);
+            unset($fields['shipping']['shipping_country']);
+            unset($fields['shipping']['shipping_address_1']);
+            unset($fields['shipping']['shipping_address_2']);
+            unset($fields['shipping']['shipping_city']);
+            unset($fields['shipping']['shipping_state']);
+            unset($fields['shipping']['shipping_postcode']);
         }
 
-        $productObj = wc_get_product($product_id);
+        return $fields;
+    }
 
-        if ($productObj->is_downloadable() || $productObj->is_virtual()){
-            $virtualProducts += 1;
+    function WDC_virtual_product_check( ) {
+
+        $products = WC()->cart->cart_contents;
+        $virtualProducts = 0;
+
+        foreach ($products as $product) {
+
+            if ($product['variation_id'] ){
+                $product_id = $product['variation_id'];
+            }else{
+                $product_id = $product['product_id'];
+            }
+
+            $productObj = wc_get_product($product_id);
+
+            if ($productObj->is_downloadable() || $productObj->is_virtual()){
+                $virtualProducts += 1;
+            } else {
+                //do nothing
+            };
+
+        }
+
+        if (count($products) == $virtualProducts) {
+            return true;
         } else {
             //do nothing
-        };
-
+        }
     }
 
-    if (count($products) == $virtualProducts) {
-        return true;
-    } else {
-        //do nothing
-    }
 }
 

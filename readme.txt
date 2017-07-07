@@ -2,21 +2,22 @@
 Contributors: kenanfallon
 Donate link: http://kenanfallon.com
 Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: trunk
+Tested up to: 4.7.1
+Stable tag: 0.2
 Tags: woocommerce, woocommerce downloads, woocommerce digital, woocommerce checkout
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Hide WooCommerce billing and shipping fields on checkout when a customer only has virtual/download products in their cart.
+Hide billing and shipping fields when the cart only contains virtual / digital products.
 
 == Description ==
 
-Hide WooCommerce billing and shipping fields on checkout when a customer only has virtual/download products in their cart.
+Hide billing and shipping fields when the cart only contains virtual / digital products.
 
 Requires Woocommerce and Wordpress 4.0>
 
 == Installation ==
 
-1. Upload the 'WooCommerce Digital Checkout' ZIP to your plugins under the Plugins >> Add New > Upload page.
-2. Activate 'WooCommerce Digital Checkout' from your Plugins page.
+- Install using the Wordpress "Add New Plugin" installer or upload the plugin files into the plugins folder.
+
+- Activate the plugin.
