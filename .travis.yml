@@ -19,7 +19,6 @@ php:
 
 env:
   - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=4.6 WP_MULTISITE=0
   - WP_VERSION=4.7.1 WP_MULTISITE=0
   - WP_VERSION=4.8 WP_MULTISITE=0
 
@@ -47,7 +46,7 @@ script:
 
 deploy:
   #
-  # Auto-deploys the built plugin to WordPress.org on push to master branch
+  # Auto-deploys the built plugin to WordPress.org on push to tag branch
   #
   provider: script
   skip_cleanup: true
@@ -55,5 +54,4 @@ deploy:
   on:
       tags: true
       php: '7.1'
-
       condition: "$WP_VERSION= 4.7.1"
