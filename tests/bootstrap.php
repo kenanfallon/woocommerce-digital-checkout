@@ -1,21 +1,37 @@
 <?php
 /**
- * WooCommerce Unit Tests Bootstrap
+ * PHPUnit bootstrap file
  *
- * @since 2.2
+ * @package Digital_Checkout_For_Woocommerce
+ */
+
+/**
+ * Class WC_Unit_Tests_Bootstrap
  */
 class WC_Unit_Tests_Bootstrap {
 
-	/** @var WC_Unit_Tests_Bootstrap instance */
+	/**
+	 * The bootstrap instance
+	 *
+	 * @var WC_Unit_Tests_Bootstrap instance */
 	protected static $instance = null;
 
-	/** @var string directory where wordpress-tests-lib is installed */
+	/**
+	 * Directory where wordpress-tests-lib is installed
+	 *
+	 * @var string */
 	public $wp_tests_dir;
 
-	/** @var string testing directory */
+	/**
+	 * Testing directory
+	 *
+	 * @var string */
 	public $tests_dir;
 
-	/** @var string plugin directory */
+	/**
+	 * Plugin directory
+	 *
+	 * @var string */
 	public $plugin_dir;
 
 	/**
@@ -37,19 +53,19 @@ class WC_Unit_Tests_Bootstrap {
 		$this->plugin_dir   = '/tmp/wordpress/wp-content/plugins' . '/woocommerce';
 		$this->wp_tests_dir = getenv( 'WP_TESTS_DIR' ) ? getenv( 'WP_TESTS_DIR' ) : '/tmp/wordpress-tests-lib';
 
-		// load test function so tests_add_filter() is available
+		// load test function so tests_add_filter() is available.
 		require_once( $this->wp_tests_dir . '/includes/functions.php' );
 
-		// load WC
+		// load WC.
 		tests_add_filter( 'muplugins_loaded', array( $this, 'load_wc' ) );
 
-		// install WC
+		// install WC.
 		tests_add_filter( 'setup_theme', array( $this, 'install_wc' ) );
 
-		// load the WP testing environment
+		// load the WP testing environment.
 		require_once( $this->wp_tests_dir . '/includes/bootstrap.php' );
 
-		// load WC testing framework
+		// load WC testing framework.
 		$this->includes();
 	}
 
@@ -59,7 +75,7 @@ class WC_Unit_Tests_Bootstrap {
 	 * @since 2.2
 	 */
 	public function load_wc() {
-		require_once ( $this->plugin_dir . '/woocommerce.php' );
+		require_once( $this->plugin_dir . '/woocommerce.php' );
 
 		require_once __DIR__ . '/../woocommerce-digital-checkout.php';
 	}
@@ -78,7 +94,7 @@ class WC_Unit_Tests_Bootstrap {
 
 		WC_Install::install();
 
-		// Reload capabilities after install, see https://core.trac.wordpress.org/ticket/28374
+		// Reload capabilities after install, see https://core.trac.wordpress.org/ticket/28374.
 		if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
 			$GLOBALS['wp_roles']->reinit();
 		} else {
@@ -96,24 +112,24 @@ class WC_Unit_Tests_Bootstrap {
 	 */
 	public function includes() {
 
-		// factories
+		// factories.
 		require_once( $this->plugin_dir . '/tests/framework/factories/class-wc-unit-test-factory-for-webhook.php' );
 		require_once( $this->plugin_dir . '/tests/framework/factories/class-wc-unit-test-factory-for-webhook-delivery.php' );
 
-		// framework
+		// framework.
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-unit-test-factory.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-mock-session-handler.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-mock-wc-data.php' );
-//		require_once( $this->plugin_dir . '/tests/framework/class-wc-mock-wc-object-query.php' );
+		require_once( $this->plugin_dir . '/tests/framework/class-wc-mock-wc-object-query.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-payment-token-stub.php' );
 		require_once( $this->plugin_dir . '/tests/framework/vendor/class-wp-test-spy-rest-server.php' );
 
-		// test cases
+		// test cases.
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-unit-test-case.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-api-unit-test-case.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-rest-unit-test-case.php' );
 
-		// Helpers
+		// Helpers.
 		require_once( $this->plugin_dir . '/tests/framework/helpers/class-wc-helper-product.php' );
 		require_once( $this->plugin_dir . '/tests/framework/helpers/class-wc-helper-coupon.php' );
 		require_once( $this->plugin_dir . '/tests/framework/helpers/class-wc-helper-fee.php' );
