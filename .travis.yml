@@ -43,3 +43,11 @@ before_script:
 script:
   - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
   - phpunit
+
+deploy:
+  #
+  # Auto-deploys the built plugin to WordPress.org on push to master branch
+  #
+  provider: script
+  skip_cleanup: true
+  script: ./bin/deploy.sh

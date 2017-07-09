@@ -67,6 +67,25 @@ install_wp() {
 	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
 }
 
+install_wc() {
+
+    if [ -d $WP_CORE_DIR/wp-content/plugins/woocommerce/ ]; then
+		return;
+	fi
+
+	mkdir -p $WP_CORE_DIR/wp-content/plugins/
+
+    mkdir -p /tmp/woocommerce
+    download https://downloads.wordpress.org/plugin/woocommerce.zip /tmp/woocommerce/woocommerce.zip
+    unzip -q /tmp/woocommerce/woocommerce.zip -d /tmp/woocommerce/
+    mv /tmp/woocommerce/* $WP_CORE_DIR/wp-content/plugins/
+
+    git clone --recursive https://github.com/woocommerce/woocommerce.git /tmp/woocommerce_tests/
+    mkdir -p /tmp/wordpress/wp-content/plugins/woocommerce/tests/
+    mv /tmp/woocommerce_tests/tests/* $WP_CORE_DIR/wp-content/plugins/woocommerce/tests/
+
+}
+
 install_test_suite() {
 	# portable in-place argument for both GNU sed and Mac OSX sed
 	if [[ $(uname -s) == 'Darwin' ]]; then
@@ -123,5 +142,6 @@ install_db() {
 }
 
 install_wp
+install_wc
 install_test_suite
 install_db
