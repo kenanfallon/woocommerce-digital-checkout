@@ -36,10 +36,10 @@ class SampleTest extends WP_UnitTestCase {
 	 */
 	function test_page() {
 
-		$post_id = $this->factory->post->create([
+		$post_id = $this->factory->post->create(array(
 			'post_type' => 'page',
 			'post_title' => 'Hello!',
-		]);
+		));
 
 		$this->assertEquals( 'Hello!', get_the_title( $post_id ) );
 
