@@ -85,11 +85,37 @@ mkdir $SVNPATH/trunk
 # Copy our new version of the plugin into trunk
 rsync -r -p ~/woocommerce-digital-checkout/* $SVNPATH/trunk
 
+##DEAL WITH TRAVIS HERE..
+
+# Copy all the .svn folders from the checked out copy of trunk to the new trunk.
+# This is necessary as the Travis container runs Subversion 1.6 which has .svn dirs in every sub dir
+cd $SVNPATH/trunk/
+TARGET=$(pwd)
+cd ../../svn-trunk/
+
+echo
+echo current dir is..
+echo $CURRENTDIR
+
+# Find all .svn dirs in sub dirs
+SVN_DIRS=`find . -type d -iname .svn`
+
+for SVN_DIR in $SVN_DIRS; do
+    SOURCE_DIR=${SVN_DIR/.}
+    TARGET_DIR=$TARGET${SOURCE_DIR/.svn}
+    TARGET_SVN_DIR=$TARGET${SVN_DIR/.}
+    if [ -d "$TARGET_DIR" ]; then
+        # Copy the .svn directory to trunk dir
+        cp -r $SVN_DIR $TARGET_SVN_DIR
+    fi
+done
+
+#END DEAL WITH TRAVIS
+
 # Back to builds dir
 cd $SVNPATH
 
 echo "Changing directory to SVN and committing to trunk"
-cd $SVNPATH/trunk/
 
 #Ignore files
 svn propset svn:ignore -R "bin/deploy.sh
@@ -97,24 +123,23 @@ README.md
 .git
 .gitignore
 .travis.yml
+phpcs.ruleset.xml
+phpunit.xml.dist
 tests
-bin" "$SVNPATH/trunk/"
+bin" "$SVNPATH"
 
 svn status --no-ignore
 
+cd $SVNPATH/trunk/
+
 # Add all new files that are not set to be ignored
 svn status | grep -v "^.[ \t]*\..*" | grep "^?" | awk '{print $2}' | xargs svn add
-
-svn status --show-updates
-
-svn ci --no-auth-cache --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD svn -m "Deploy version $NEWVERSION1"
+svn ci --no-auth-cache --username=$WP_ORG_USERNAME --password $WP_ORG_PASSWORD -m "Deploying version$
 
 echo "Creating new SVN tag & committing it"
 cd $SVNPATH
-svn cp trunk tags/$NEWVERSION1
+svn copy trunk/ tags/$NEWVERSION1/
 cd $SVNPATH/tags/$NEWVERSION1
-svn ci --no-auth-cache --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD svn -m "Tagging version $NEWVERSION1"
-
-svn status --show-updates
+svn ci -no-auth-cache --username=$WP_ORG_USERNAME --password $WP_ORG_PASSWORD -m "Tagging version $NEWVERSION1"
 
 echo "*** FIN ***"
