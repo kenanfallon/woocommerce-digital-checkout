@@ -134,7 +134,7 @@ cd $SVNPATH/trunk/
 
 # Add all new files that are not set to be ignored
 svn status | grep -v "^.[ \t]*\..*" | grep "^?" | awk '{print $2}' | xargs svn add
-svn ci --no-auth-cache --username=$WP_ORG_USERNAME --password $WP_ORG_PASSWORD -m "Deploying version$
+svn ci --no-auth-cache --username=$WP_ORG_USERNAME --password $WP_ORG_PASSWORD -m "Deploying $NEWVERSION1"
 
 echo "Creating new SVN tag & committing it"
 cd $SVNPATH

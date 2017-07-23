@@ -93,6 +93,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 		}
 
+		if ( count( $products ) == 0 ) {
+			return false;
+		}
+
 		if ( count( $products ) == $virtual_products ) {
 			return true;
 		} else {

@@ -77,6 +77,12 @@ class WC_Unit_Tests_Bootstrap {
 	public function load_wc() {
 		require_once( $this->plugin_dir . '/woocommerce.php' );
 
+		$plugins_to_active = array(
+			'woocommerce/woocommerce.php',
+		);
+
+		update_option( 'active_plugins', $plugins_to_active );
+
 		require_once __DIR__ . '/../woocommerce-digital-checkout.php';
 	}
 
