@@ -1,3 +1,5 @@
+[![TravisCI](https://travis-ci.org/kenanfallon/woocommerce-digital-checkout.svg?branch=master)](https://travis-ci.org/kenanfallon/woocommerce-digital-checkout)
+
 # WooCommerce Digital Checkout
 
 Hide WooCommerce billing and shipping fields on checkout when a customer only has virtual/download products in their cart.
