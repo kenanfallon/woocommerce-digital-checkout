@@ -140,6 +140,6 @@ echo "Creating new SVN tag & committing it"
 cd $SVNPATH
 svn copy trunk/ tags/$NEWVERSION1/
 cd $SVNPATH/tags/$NEWVERSION1
-svn ci --username=$WP_ORG_USERNAME --password $WP_ORG_PASSWORD -m "Tagging version $NEWVERSION1"
+svn ci --no-auth-cache --username=$WP_ORG_USERNAME --password $WP_ORG_PASSWORD -m "Tagging version $NEWVERSION1"
 
 echo "*** FIN ***"
