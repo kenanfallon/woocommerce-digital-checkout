@@ -83,7 +83,8 @@ mv $SVNPATH/trunk /tmp/svn-trunk
 # Create trunk directory
 mkdir $SVNPATH/trunk
 # Copy our new version of the plugin into trunk
-rsync -r -p ~/woocommerce-digital-checkout/* $SVNPATH/trunk
+#TODO: use $HOME variable here
+rsync -r -p /home/travis/build/kenanfallon/woocommerce-digital-checkout/* $SVNPATH/trunk
 
 ##DEAL WITH TRAVIS HERE..
 
