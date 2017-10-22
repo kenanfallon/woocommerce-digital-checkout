@@ -126,7 +126,7 @@ README.md
 phpcs.ruleset.xml
 phpunit.xml.dist
 tests
-bin" "$SVNPATH"
+bin" .
 
 svn status --no-ignore
 
