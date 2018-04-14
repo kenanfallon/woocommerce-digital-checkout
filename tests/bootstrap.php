@@ -118,10 +118,6 @@ class WC_Unit_Tests_Bootstrap {
 	 */
 	public function includes() {
 
-		// factories.
-		require_once( $this->plugin_dir . '/tests/framework/factories/class-wc-unit-test-factory-for-webhook.php' );
-		require_once( $this->plugin_dir . '/tests/framework/factories/class-wc-unit-test-factory-for-webhook-delivery.php' );
-
 		// framework.
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-unit-test-factory.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-mock-session-handler.php' );
