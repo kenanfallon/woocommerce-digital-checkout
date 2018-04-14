@@ -105,4 +105,4 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			// do nothing.
 		}
 	}
-}// End if().
+}
