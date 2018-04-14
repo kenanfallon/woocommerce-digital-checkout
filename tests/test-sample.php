@@ -53,7 +53,7 @@ class SampleTest extends WP_UnitTestCase {
 	 */
 	public function test_virtual_product_in_cart() {
 
-		$product = \WC_Helper_Product::create_simple_product();
+		$product    = \WC_Helper_Product::create_simple_product();
 		$product_id = $product->get_id();
 		update_post_meta( $product_id, '_virtual', 'yes' );
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
@@ -80,10 +80,12 @@ class SampleTest extends WP_UnitTestCase {
 	 */
 	function test_page() {
 
-		$post_id = $this->factory->post->create(array(
-			'post_type' => 'page',
-			'post_title' => 'Hello!',
-		));
+		$post_id = $this->factory->post->create(
+			array(
+				'post_type'  => 'page',
+				'post_title' => 'Hello!',
+			)
+		);
 
 		$this->assertEquals( 'Hello!', get_the_title( $post_id ) );
 

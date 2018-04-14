@@ -74,7 +74,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	 */
 	function wdc_virtual_product_check() {
 
-		$products = WC()->cart->cart_contents;
+		$products         = WC()->cart->cart_contents;
 		$virtual_products = 0;
 
 		foreach ( $products as $product ) {
