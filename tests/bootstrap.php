@@ -127,6 +127,7 @@ class WC_Unit_Tests_Bootstrap {
 		require_once( $this->plugin_dir . '/tests/framework/vendor/class-wp-test-spy-rest-server.php' );
 
 		// test cases.
+        require_once( $this->tests_dir .  '/tests/includes/wp-http-testcase.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-unit-test-case.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-api-unit-test-case.php' );
 		require_once( $this->plugin_dir . '/tests/framework/class-wc-rest-unit-test-case.php' );
