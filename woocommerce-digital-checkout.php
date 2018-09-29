@@ -7,12 +7,12 @@
  * Plugin Name: WooCommerce Digital Checkout
  * Plugin URI: https://github.com/kenanfallon/woocommerce-digital-checkout
  * Description: Hide Billing and Shipping Checkout Fields For Virtual/Download Products
- * Version: 0.33
+ * Version: 0.4
  * Author: Kenan Fallon
  * Author URI: http://kenanfallon.com
  * License: GPLv2 or later
  * WC requires at least: 3.0.0
- * WC tested up to: 3.9.5
+ * WC tested up to: 4.3.5
  */
 
 /**

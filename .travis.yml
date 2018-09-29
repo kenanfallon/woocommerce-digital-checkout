@@ -60,5 +60,5 @@ deploy:
   script: ./bin/deploy.sh
   on:
       tags: true
-      php: '7.1'
-      condition: "$WP_VERSION = 4.7.1"
+      php: '7.2'
+      condition: "$WP_VERSION = 4.9.8"
